@@ -1,0 +1,19 @@
+{
+  "project_folder" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/",
+  "raw_data" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/nf-star-test/raw_data/",
+  "genomes" : "/nexus/posix0/MAGE-flaski/service/projects/data/Bioinformatics/alternative_splicing/",
+  "raw_renamed" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/raw_renamed/",
+  "sample_sheet_xlsx" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/nf-star-test/sample_sheet.xlsx",
+  "read1_sufix" : ".READ_1.fastq.gz",
+  "read2_sufix" : ".READ_2.fastq.gz",
+  "star_index" : "/nexus/posix0/MAGE-flaski/service/projects/data/Bioinformatics/alternative_splicing/caenorhabditis_elegans/111/toplevel_star_2.7.11b/",
+  "star_output" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/star_output/",
+  "organism" : "caenorhabditis_elegans",
+  "release" : "111",
+  "max_intron": "4500",
+  "sajr_code" : "/nexus/posix0/MAGE-flaski/service/projects/data/Bioinformatics/alternative_splicing/sajr_code",
+  "sajr_output" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/sajr_output/",
+  "series": "at_pipe_test_asplicing",
+  "spec": "celegans",
+  "tmp" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/tmp"
+}
