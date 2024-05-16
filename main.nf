@@ -391,15 +391,15 @@ process upload_paths {
   
     cd ${params.fastqc_output}
   
-    for file in *.html; do echo "${params.fastqc_output}${file}" >> ${params.scripts}upload.txt_; done
+    for file in *.html; do echo "${params.fastqc_output}\${file}" >> ${params.scripts}upload.txt_; done
   
     echo "multiqc ${params.multiqcOut}multiqc_report.html" >> ${params.scripts}upload.txt_ 
   
     cd ${params.bw_output}
-    for file in *.bw ; do echo "${params.bw_output}${file}" >>  ${params.scripts}upload.txt_ ; done
+    for file in *.bw ; do echo "${params.bw_output}\${file}" >>  ${params.scripts}upload.txt_ ; done
   
     cd ${params.sajr_output}count_files/
-    for file in *.results.xlsx ; do echo "${params.sajr_output}${file})" >> ${params.scripts}upload.txt_ ; done
+    for file in *.results.xlsx ; do echo "${params.sajr_output}\${file})" >> ${params.scripts}upload.txt_ ; done
   
     cd ${params.scripts}
     uniq upload.txt_ upload.txt 
