@@ -360,9 +360,12 @@ process sajr_diff_splicing {
       
     }
     # run SAJR pipeline for RNP6 samples
+
+    if (!file.exists('${params.sajr_output}count_files/')) {
     dir.create('${params.sajr_output}count_files/')
+    }
     setwd('${params.sajr_output}count_files/')
-    samples = read.xlsx("${params.sample_sheet_xlsx}")
+    samples = read.xlsx("/workdir/nf-star-test/sample_sheet.xlsx")
     groups = unique(samples[,2])
     for(g1 in 1:length(groups)){
       for(g2 in 1:length(groups)){
