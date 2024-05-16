@@ -15,5 +15,9 @@
   "sajr_output" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/sajr_output/",
   "series": "at_pipe_test_asplicing",
   "spec": "celegans",
-  "tmp" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/tmp"
+  "tmp" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/tmp",
+  "fastqc_output":"/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/fastqc_output/",
+  "bw_output": "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/bw_output/",
+  "multiqcOut":"/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/multiqc_output/",
+  "scripts":"/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/scripts/"
 }
