@@ -386,75 +386,25 @@ process upload_paths {
 
   script:
   """
-    
-    if [  -e ${sajr_out}count_files/sessionInfo.txt ] ; then
-
-    rm -rf ${scripts}/upload.bit.txt
-
-    if [[ "$SERVER" == "RAVEN" ]] ; then
-      rm -rf ${upload_list}.tmp
-
-      cd ${fast} 
-      for f in $(ls *.html) ; do echo "fastqc $(readlink -f ${f})" >>  ${scripts}/upload.bit.txt ; done
-      for f in $(ls *.html) ; do echo "fastqc $(readlink -f ${f})" >>  ${upload_list}.tmp; done
-
-      echo "multiqc ${multiqcOut}multiqc_report.html" >> ${scripts}/upload.bit.txt
-      echo "multiqc ${multiqcOut}multiqc_report.html" >> ${upload_list}.tmp
-
-      cd ${bw_out}
-      for f in $(ls *.bw) ; do echo "bigwig $(readlink -f ${f})" >>  ${scripts}/upload.bit.txt ; done
-      for f in $(ls *.bw) ; do echo "bigwig $(readlink -f ${f})" >>  ${upload_list}.tmp ; done
-
-      cd ${sajr_out}count_files/
-      for f in $(ls *.results.xlsx) ; do echo "sajr_out $(readlink -f ${f})" >>  ${scripts}/upload.bit.txt ; done
-      for f in $(ls *.results.xlsx) ; do echo "sajr_out $(readlink -f ${f})" >>  ${upload_list}.tmp ; done
-
-      if [[ -e "${scripts}tape_files.txt" ]] ; then 
-
-      echo "files ${scripts}tape_files.txt" >> ${scripts}/upload.bit.txt
-      echo "files ${scripts}tape_files.txt" >> ${upload_list}.tmp 
-      fi
-
-      mv ${upload_list}.tmp ${upload_list}
-      
-    
-    
-    
-    
-    
+    cd ${params.scripts}
     rm -rf upload.txt
-
-    cd ${params.project_folder}/deseq2_output/annotated
-
-    for f in \$(ls *.results.xlsx) ; do echo "deseq2 \$(readlink -f \${f})" >>  upload.txt_ ; done
-    echo "deseq2 \$(readlink -f significant.xlsx)" >>  upload.txt_
-    echo "deseq2 \$(readlink -f masterTable_annotated.xlsx)" >>  upload.txt_
-
-    if [[ \$(ls  | grep cytoscape) ]] ; then
-      for f in \$(ls *.cytoscape.* ) ; do echo "cytoscape \$(readlink -f \${f})" >>  upload.txt_ ; done
-    fi
-
-    if [[ \$(ls  | grep DAVID) ]] ; then
-      for f in \$(ls *.DAVID.* ) ; do echo "david \$(readlink -f \${f})" >>  upload.txt_ ; done
-    fi
-
-    if [[ \$(ls  | grep RcisTarget) ]] ; then
-      for f in \$(ls *.RcisTarget.* ) ; do echo "rcistarget \$(readlink -f \${f})" >>  upload.txt_ ; done
-    fi
-
-    if [[ \$(ls  | grep topGO) ]] ; then
-      for f in \$(ls *.topGO.* ) ; do echo "topgo \$(readlink -f \${f})" >>  upload.txt_ ; done
-    fi
-
+  
+    cd ${params.fastqc_output}
+  
+    for file in *.html; do echo "${params.fastqc_output}${file}" >> ${params.scripts}upload.txt_; done
+  
+    echo "multiqc ${params.multiqcOut}multiqc_report.html" >> ${params.scripts}upload.txt_ 
+  
+    cd ${params.bw_output}
+    for file in *.bw ; do echo "${params.bw_output}${file}" >>  ${params.scripts}upload.txt_ ; done
+  
+    cd ${params.sajr_output}count_files/
+    for file in *.results.xlsx ; do echo "${params.sajr_output}${file})" >> ${params.scripts}upload.txt_ ; done
+  
+    cd ${params.scripts}
     uniq upload.txt_ upload.txt 
     rm upload.txt_
 
-    cd ${params.project_folder}/qc_plots
-    rm -rf upload.txt 
-    for f in \$(ls *.* | grep -v upload.txt) ; do echo "qc_plots \$(readlink -f \${f})" >>  upload.txt_ ; done
-
-    uniq upload.txt_ upload.txt 
-    rm upload.txt_
 
   """
 }
