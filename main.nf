@@ -421,7 +421,7 @@ workflow config_template {
   fill_config_template()
 }
 
-workflow run_sajr {
+workflow sajr_processing {
   sajr()
 }
 
