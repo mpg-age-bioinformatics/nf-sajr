@@ -64,12 +64,7 @@ process fill_config_template {
       import pandas as pd
       import openpyxl
 
-      if os.path.exists("${params.tmp}"):
-          pass
-      else:
-          os.makedirs("${params.tmp}")
-
-      samplesheet = pd.read_excel("/workdir/nf-star-test/sample_sheet.xlsx", engine="openpyxl")
+      samplesheet = pd.read_excel("/workdir/sample_sheet.xlsx", engine="openpyxl")
       samplesheet
       gff32sajr_template = open('${params.sajr_code}/sajr.gff32sajr.template.config')
       gff32sajr_config = gff32sajr_template.read()
@@ -105,7 +100,7 @@ process fill_config_template {
               groups[row[1]] = 1
           else: 
               groups[row[1]] += 1     
-          batch_in += [('${params.star_output}%s_%s.Aligned.sortedByCoord.out.bam' %(row[1], groups[row[1]]))]
+          batch_in += [('${params.star_out}%s_%s.Aligned.sortedByCoord.out.bam' %(row[1], groups[row[1]]))]
           batch_out += [('${params.sajr_output}count_files/%s_%s' %(row[1], groups[row[1]]))]
       place_holder_batch_in=','.join(batch_in)
       place_holder_batch_out=','.join(batch_out)
@@ -365,7 +360,7 @@ process sajr_diff_splicing {
     dir.create('${params.sajr_output}count_files/')
     }
     setwd('${params.sajr_output}count_files/')
-    samples = read.xlsx("/workdir/nf-star-test/sample_sheet.xlsx")
+    samples = read.xlsx("/workdir/sample_sheet.xlsx")
     groups = unique(samples[,2])
     for(g1 in 1:length(groups)){
       for(g2 in 1:length(groups)){
@@ -389,22 +384,22 @@ process upload_paths {
 
   script:
   """
-    cd ${params.scripts}
+    cd ${params.project_folder}
     rm -rf upload.txt
   
-    cd ${params.fastqc_output}
+    cd ${params.project_folder}/fastqc_output
   
-    for file in *.html; do echo "${params.fastqc_output}\${file}" >> ${params.scripts}upload.txt_; done
+    for file in *.html; do echo "${params.project_folder}/fastqc_output\${file}" >> ${params.project_folder}upload.txt_; done
   
-    echo "multiqc ${params.multiqcOut}multiqc_report.html" >> ${params.scripts}upload.txt_ 
+    echo "multiqc ${params.multiqcOut}multiqc_report.html" >> ${params.project_folder}upload.txt_ 
   
-    cd ${params.bw_output}
-    for file in *.bw ; do echo "${params.bw_output}\${file}" >>  ${params.scripts}upload.txt_ ; done
+    cd ${params.project_folder}/bw_output
+    for file in *.bw ; do echo "${params.project_folder}/bw_output\${file}" >>  ${params.project_folder}upload.txt_ ; done
   
     cd ${params.sajr_output}count_files/
-    for file in *.results.xlsx ; do echo "${params.sajr_output}\${file})" >> ${params.scripts}upload.txt_ ; done
+    for file in *.results.xlsx ; do echo "${params.sajr_output}\${file})" >> ${params.project_folder}upload.txt_ ; done
   
-    cd ${params.scripts}
+    cd ${params.project_folder}
     uniq upload.txt_ upload.txt 
     rm upload.txt_
 
@@ -421,6 +416,10 @@ workflow images {
 }
 
 workflow config_template {
+  if ( ! file("${params.tmp}").isDirectory() ) {
+        file("${params.tmp}").mkdirs()
+      }
+
   fill_config_template()
 }
 
