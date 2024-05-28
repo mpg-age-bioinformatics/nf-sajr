@@ -356,9 +356,6 @@ process sajr_diff_splicing {
     }
     # run SAJR pipeline for RNP6 samples
 
-    if (!file.exists('${params.sajr_output}count_files/')) {
-    dir.create('${params.sajr_output}count_files/')
-    }
     setwd('${params.sajr_output}count_files/')
     samples = read.xlsx("/workdir/sample_sheet.xlsx")
     groups = unique(samples[,2])
@@ -424,6 +421,9 @@ workflow config_template {
 }
 
 workflow sajr_processing {
+  if ( ! file("${params.sajr_output}/count_files").isDirectory() ) {
+        file("${params.sajr_output}/count_files").mkdirs()
+      }
   sajr()
 }
 
