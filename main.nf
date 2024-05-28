@@ -381,25 +381,12 @@ process upload_paths {
 
   script:
   """
-    cd ${params.project_folder}
-    rm -rf upload.txt
-  
-    cd ${params.project_folder}/fastqc_output
-  
-    for file in *.html; do echo "${params.project_folder}/fastqc_output\${file}" >> ${params.project_folder}upload.txt_; done
-  
-    echo "multiqc ${params.multiqcOut}multiqc_report.html" >> ${params.project_folder}upload.txt_ 
-  
-    cd ${params.project_folder}/bw_output
-    for file in *.bw ; do echo "${params.project_folder}/bw_output\${file}" >>  ${params.project_folder}upload.txt_ ; done
-  
     cd ${params.sajr_output}count_files/
-    for file in *.results.xlsx ; do echo "${params.sajr_output}\${file})" >> ${params.project_folder}upload.txt_ ; done
-  
-    cd ${params.project_folder}
+    rm -rf upload.txt
+
+    for file in \$(ls *.results.xlsx) ; do echo "\$(readlink -f \${file})" >> upload.txt_ ; done
     uniq upload.txt_ upload.txt 
     rm upload.txt_
-
 
   """
 }
