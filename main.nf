@@ -187,7 +187,7 @@ process sajr {
    
     cd ${params.sajr_output}
 
-    cp ${params.genomes}${params.organism}/${params.release}/${params.organism}.${params.release}.gff ./${params.organism}.${params.release}.gff
+    cp ${params.genomes}${params.organism}/${params.release}/${params.organism}.${params.release}.gff ${params.sajr_output}/${params.organism}.${params.release}.gff
     echo "step 7: bedtools intersect novel and known isoforms"
     echo "bedtools intersect -s -f 1.0 -loj -a ${params.series}.novel.gff -b ${params.organism}.${params.release}.gff > novel_overlap_known.${params.series}.gff"
     bedtools intersect -s -f 1.0 -loj -a ${params.series}.novel.gff -b ${params.genomes}${params.organism}/${params.release}/${params.organism}.${params.release}.gff > novel_overlap_known.${params.series}.gff
@@ -419,6 +419,5 @@ workflow sajr_diff {
 }
 
 workflow upload {
-  main:
-    upload_paths()
+  upload_paths()
 }
