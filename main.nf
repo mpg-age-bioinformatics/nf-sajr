@@ -64,7 +64,7 @@ process fill_config_template {
       import pandas as pd
       import openpyxl
 
-      samplesheet = pd.read_excel("/workdir/sample_sheet.xlsx", engine="openpyxl")
+      samplesheet = pd.read_excel("${params.sample_sheet_xlsx}", engine="openpyxl")
       samplesheet
       gff32sajr_template = open('${params.sajr_code}/sajr.gff32sajr.template.config')
       gff32sajr_config = gff32sajr_template.read()
