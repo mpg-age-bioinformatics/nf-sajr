@@ -357,7 +357,7 @@ process sajr_diff_splicing {
     # run SAJR pipeline for RNP6 samples
 
     setwd('${params.sajr_output}count_files/')
-    samples = read.xlsx("/workdir/sample_sheet.xlsx")
+    samples = read.xlsx("${params.sample_sheet_xlsx}")
     groups = unique(samples[,2])
     for(g1 in 1:length(groups)){
       for(g2 in 1:length(groups)){
